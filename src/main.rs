@@ -17,12 +17,9 @@ async fn main() -> Result<(), sqlx::Error> {
         .expect("Failed to username");
 
     let pass = rpassword::read_password_from_tty(Some("Password: ")).unwrap();
-
-
     let conn_str = format!("mysql://{}:{}@localhost/oscar_utilization", user, pass);
-
+    
     let seconds = time::Duration::from_secs(5);
-
     let pool = MySqlPool::connect(&conn_str).await?;
     
     loop { 
