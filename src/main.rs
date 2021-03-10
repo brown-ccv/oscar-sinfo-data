@@ -1,6 +1,5 @@
-use std::io;
 use std::{thread, time};
-use sqlx::mysql::MySqlPool;
+use sqlx::Connection;
 
 mod sinfo; 
 
@@ -9,19 +8,10 @@ mod sinfo;
 
 #[tokio::main]
 async fn main() -> Result<(), sqlx::Error> {
-    println!("Username:");
-    let mut user = String::new();
-
-    io::stdin()
-        .read_line(&mut user)
-        .expect("Failed to username");
-
-    let pass = rpassword::read_password_from_tty(Some("Password: ")).unwrap();
-    let conn_str = format!("mysql://{}:{}@localhost/oscar_utilization", user, pass);
     
     let seconds = time::Duration::from_secs(5);
-    let pool = MySqlPool::connect(&conn_str).await?;
-    
+    let conn = SqliteConnection::connect("sqlite::oscar.db").await?; 
+
     loop { 
         let cpu_status = sinfo::cpu_status();
 
@@ -32,7 +22,7 @@ async fn main() -> Result<(), sqlx::Error> {
             .bind(&cpu_status[1])
             .bind(&cpu_status[2])
             .bind(&cpu_status[3])
-            .execute(&pool).await?;
+            .execute(&conn).await?;
 
         thread::sleep(seconds);
     };
