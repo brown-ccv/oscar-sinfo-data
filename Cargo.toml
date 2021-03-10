@@ -8,5 +8,5 @@ edition = "2018"
 
 [dependencies]
 rpassword = "5.0.1"
-sqlx = { version = "0.5.1", features = [ "runtime-tokio-rustls", "mysql" ] }
+sqlx = { version = "0.5.1", features = [ "runtime-tokio-rustls", "sqlite" ] }
 tokio = { version = "1.2.0", features = [ "full" ]}

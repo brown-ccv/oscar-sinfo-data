@@ -17,7 +17,7 @@ pub fn cpu_status() -> Vec<String> {
     let mut s = String::new();
     match process.stdout.unwrap().read_to_string(&mut s) {
         Err(why) => panic!("Couldn't read sinfo stdout: {}", why),
-        Ok(_) => print!("sinfo responded with:\n{}", s),
+        Ok(_) => (),
     };
     // The String `s` will be something of the form: "8446/5042/72/13560"  
 
