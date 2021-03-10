@@ -15,12 +15,17 @@ async fn main() -> Result<(), sqlx::Error> {
     io::stdin()
         .read_line(&mut user)
         .expect("Failed to username");
-
+    
+    let user = user.trim();
     let pass = rpassword::read_password_from_tty(Some("Password: ")).unwrap();
-    let conn_str = format!("mysql://{}:{}@localhost/oscar_utilization", user, pass);
+    let conn_str = format!("mysql://{}:{}@pventmydbcit1.services.brown.edu", user, pass);
+    
+    println!("{}", conn_str);
     
     let seconds = time::Duration::from_secs(5);
-    let pool = MySqlPool::connect(&conn_str).await?;
+    let pool = MySqlPool::connect(&conn_str).await;
+
+    let pool = pool.unwrap();
     
     loop { 
         let cpu_status = sinfo::cpu_status();
@@ -39,3 +44,4 @@ async fn main() -> Result<(), sqlx::Error> {
 
     Ok(())
 }
+
