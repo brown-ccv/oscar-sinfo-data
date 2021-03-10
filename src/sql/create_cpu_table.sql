@@ -1,7 +1,7 @@
-USE oscar_utilization;
+-- USE oscar_utilization;
 
 CREATE TABLE cpu (
-    id          int primary key auto_increment,
+    id          integer primary key autoincrement,
     time        timestamp,
     allocated   int, 
     idle        int,
