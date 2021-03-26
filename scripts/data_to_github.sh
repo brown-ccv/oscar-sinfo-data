@@ -8,7 +8,7 @@ sqlite3 -separator ',' -header ../src/sql/oscar.db "select id, datetime(time, 'l
 
 t=`date`
 
-git add -A
+git add ../data/oscar.csv
 git commit -m "update from ${t}"
 git push origin main
 

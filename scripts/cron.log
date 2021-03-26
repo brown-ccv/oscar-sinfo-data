@@ -1,0 +1,2 @@
+/users/pstey/projects/oscar-sinfo-data/scripts/data_to_github.sh: line 3: module: command not found
+/users/pstey/projects/oscar-sinfo-data/scripts/data_to_github.sh: line 7: ../data/oscar.csv: Permission denied
