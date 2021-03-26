@@ -1,6 +1,5 @@
-use std::io;
 use std::{thread, time};
-use sqlx::mysql::MySqlPool;
+use sqlx::SqlitePool;
 
 mod sinfo; 
 
@@ -9,6 +8,7 @@ mod sinfo;
 
 #[tokio::main]
 async fn main() -> Result<(), sqlx::Error> {
+<<<<<<< HEAD
     println!("Username:");
     let mut user = String::new();
 
@@ -26,12 +26,17 @@ async fn main() -> Result<(), sqlx::Error> {
     let pool = MySqlPool::connect(&conn_str).await;
 
     let pool = pool.unwrap();
+=======
+>>>>>>> feat-use-sqlite
     
+    let seconds = time::Duration::from_secs(900);
+    let pool = SqlitePool::connect("sqlite:/users/pstey/projects/oscar-sinfo-data/src/sql/oscar.db").await?; 
+
     loop { 
         let cpu_status = sinfo::cpu_status();
 
         let _row = sqlx::query("INSERT INTO cpu (time, allocated, idle, other, total)
-                               VALUES (NOW(), ?, ?, ?, ?)"
+                               VALUES (DATETIME(), ?, ?, ?, ?)"
             )
             .bind(&cpu_status[0])
             .bind(&cpu_status[1])
@@ -44,4 +49,7 @@ async fn main() -> Result<(), sqlx::Error> {
 
     Ok(())
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> feat-use-sqlite

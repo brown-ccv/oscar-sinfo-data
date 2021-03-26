@@ -1,2 +1,7 @@
 /target
 Cargo.lock
+
+## Ignore sqlite database and its cruft
+*.db
+*.db-shm
+*.db-wal
